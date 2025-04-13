@@ -8,14 +8,16 @@ services:
       - "80:80"
     networks:
       - internal
+
   backend:
-    image: php:7.4-fpm
+    build: .
     volumes:
       - ./mounts/site:/var/www/html
     networks:
       - internal
     env_file:
       - mysql.env
+
   database:
     image: mysql:8.0
     env_file:

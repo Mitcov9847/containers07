@@ -1,49 +1,99 @@
 <?php
-// Определяем текущую страницу
-$page = isset($_GET['page']) ? $_GET['page'] : 'home';
+// Подключение к базе данных MySQL
+$servername = "database"; // Имя контейнера базы данных
+$username = "user";
+$password = "secret";
+$dbname = "app";
+
+// Создание соединения
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Проверка соединения
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Проверка на отправку формы
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user_message = $_POST["message"];
+
+    // Вставка сообщения в базу данных
+    $sql = "INSERT INTO messages (content) VALUES ('$user_message')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Message saved successfully.";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+// Закрытие соединения
+$conn->close();
 ?>
 
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Простой сайт на PHP</title>
-    <link rel="stylesheet" href="style.css">
+    <title>PHP Site</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+        }
+        form {
+            margin: 20px 0;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Добро пожаловать на наш сайт!</h1>
-        <nav>
-            <ul>
-                <li><a href="?page=home">Главная</a></li>
-                <li><a href="?page=about">О нас</a></li>
-                <li><a href="?page=contact">Контакты</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <?php
-        // Контент для разных страниц
-        if ($page === 'home') {
-            echo "<h2>Главная страница</h2>";
-            echo "<p>Это главная страница нашего сайта.</p>";
-        } elseif ($page === 'about') {
-            echo "<h2>О нас</h2>";
-            echo "<p>Мы — команда разработчиков, создающая веб-сайты с использованием PHP и Docker.</p>";
-        } elseif ($page === 'contact') {
-            echo "<h2>Контакты</h2>";
-            echo "<p>Вы можете связаться с нами через email: info@company.com</p>";
-        } else {
-            echo "<h2>Страница не найдена</h2>";
-            echo "<p>Извините, такой страницы не существует.</p>";
-        }
-        ?>
-    </main>
+<header>
+    <h1>Welcome to the PHP Website</h1>
+</header>
 
-    <footer>
-        <p>&copy; 2025 Простой сайт на PHP. Все права защищены.</p>
-    </footer>
+<main>
+    <h2>Server Information</h2>
+    <p><strong>PHP Version:</strong> <?php echo phpversion(); ?></p>
+    <p><strong>MySQL Version:</strong> <?php echo mysqli_get_client_version(); ?></p>
+    <p><strong>Current Date and Time:</strong> <?php echo date('Y-m-d H:i:s'); ?></p>
+
+    <h2>Submit a Message</h2>
+    <form action="" method="POST">
+        <label for="message">Your Message:</label>
+        <textarea name="message" id="message" rows="4" required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+</main>
+
 </body>
 </html>
