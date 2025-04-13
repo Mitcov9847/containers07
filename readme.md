@@ -17,13 +17,13 @@
 
 1. Создайте репозиторий с именем `containers06` и скопируйте его себе на компьютер.
 
-   ```bash
+```bash
    git init containers07
     ```
 2. Сайт на PHP
 В директории containers07 создайте директорию mounts/site:
 
-  ```bash
+```bash
 mkdir -p containers07/mounts/site
  ```
 ![image](https://github.com/user-attachments/assets/2e5e151b-0147-4c74-aa43-d3fa7e8fe608)
@@ -33,14 +33,14 @@ mkdir -p containers07/mounts/site
 3.1. Создание файла .gitignore
 В корне проекта создайте файл .gitignore и добавьте в него строки:
 
- ``` bash
+``` bash
 mounts/site/*
  ```
 
 # 3.2. Создание конфигурации для Nginx
 В директории containers07 создайте файл nginx/default.conf со следующим содержимым:
 
- ``` nginx
+``` nginx
 server {
     listen 80;
     server_name _;
@@ -65,8 +65,7 @@ server {
 #  3.3. Создание docker-compose.yml
 В директории containers06 создайте файл docker-compose.yml со следующим содержимым:
 
- ```
-yaml
+```yaml
 version: '3.9'
 
 services:
@@ -109,8 +108,7 @@ volumes:
 #  3.4. Создание файла mysql.env 
 В корне проекта создайте файл mysql.env и добавьте в него строки:
 
- ```
-env
+```env
 MYSQL_ROOT_PASSWORD=secret
 MYSQL_DATABASE=app
 MYSQL_USER=user
@@ -121,8 +119,7 @@ MYSQL_PASSWORD=secret
 # 4. Запуск и тестирование
 Для запуска контейнеров используйте команду:
 
- ```
-bash
+```bash
 docker-compose up -d
  ```
 ![image](https://github.com/user-attachments/assets/b5cbe54f-864b-4b48-863d-9ee56f18f42c)
