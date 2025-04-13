@@ -65,9 +65,8 @@ server {
 #  3.3. Создание docker-compose.yml
 В директории containers06 создайте файл docker-compose.yml со следующим содержимым:
 
+ ```
 yaml
-Копировать
-Редактировать
 version: '3.9'
 
 services:
@@ -104,30 +103,32 @@ networks:
 
 volumes:
   db_data: {}
+ ```
+
 #  3.4. Создание файла mysql.env
 В корне проекта создайте файл mysql.env и добавьте в него строки:
 
+ ```
 env
-Копировать
-Редактировать
 MYSQL_ROOT_PASSWORD=secret
 MYSQL_DATABASE=app
 MYSQL_USER=user
 MYSQL_PASSWORD=secret
+ ```
+
 3.5. Создание файла app.env
 В корне проекта создайте файл app.env и добавьте в него строку:
 
+ ```
 env
-Копировать
-Редактировать
 APP_VERSION=1.0.0
+ ```
 Чтобы добавить переменную окружения APP_VERSION для сервисов frontend и backend, нужно обновить docker-compose.yml, добавив ссылку на файл app.env в секции env_file для сервисов frontend и backend.
 
 Пример обновленного docker-compose.yml:
 
+ ```
 yaml
-Копировать
-Редактировать
 version: '3.9'
 
 services:
@@ -168,13 +169,15 @@ networks:
 
 volumes:
   db_data: {}
+ ```
+
 # 4. Запуск и тестирование
 Для запуска контейнеров используйте команду:
 
+ ```
 bash
-Копировать
-Редактировать
 docker-compose up -d
+ ```
 Проверьте работу сайта в браузере, перейдя по адресу http://localhost. Если отображается базовая страница Nginx, перезагрузите страницу.
 
 ### Ответы на вопросы
