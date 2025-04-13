@@ -21,8 +21,7 @@
 
    ```bash
    git init containers06
-2. Сайт на PHP
-В директории containers06 создайте директорию mounts/site:
+В директории containers06 создайте директорию mounts/site.
 
 bash
 Копировать
@@ -30,8 +29,8 @@ bash
 mkdir -p containers06/mounts/site
 Перепишите сайт на PHP, созданный в рамках предыдущих лабораторных работ, в эту директорию. Убедитесь, что в этой директории есть файлы index.php, а также другие страницы, такие как about.php и contact.php, если они есть.
 
-3. Конфигурационные файлы
-3.1. Создание файла .gitignore
+2. Конфигурационные файлы
+2.1. Создание файла .gitignore
 В корне проекта создайте файл .gitignore и добавьте в него строки:
 
 bash
@@ -39,7 +38,7 @@ bash
 Редактировать
 # Ignore files and directories
 mounts/site/*
-3.2. Создание конфигурации для Nginx
+2.2. Создание конфигурации для Nginx
 В директории containers06 создайте файл nginx/default.conf со следующим содержимым:
 
 nginx
@@ -63,7 +62,7 @@ server {
         include fastcgi_params;
     }
 }
-3.3. Создание docker-compose.yml
+2.3. Создание файла docker-compose.yml
 В директории containers06 создайте файл docker-compose.yml со следующим содержимым:
 
 yaml
@@ -105,7 +104,7 @@ networks:
 
 volumes:
   db_data: {}
-3.4. Создание файла mysql.env
+2.4. Создание файла mysql.env
 В корне проекта создайте файл mysql.env и добавьте в него строки:
 
 env
@@ -115,14 +114,14 @@ MYSQL_ROOT_PASSWORD=secret
 MYSQL_DATABASE=app
 MYSQL_USER=user
 MYSQL_PASSWORD=secret
-3.5. Создание файла app.env
+2.5. Создание файла app.env
 В корне проекта создайте файл app.env и добавьте в него строку:
 
 env
 Копировать
 Редактировать
 APP_VERSION=1.0.0
-Чтобы добавить переменную окружения APP_VERSION для сервисов frontend и backend, нужно обновить docker-compose.yml, добавив ссылку на файл app.env в секции env_file для сервисов frontend и backend.
+Чтобы добавить переменную окружения APP_VERSION для сервисов frontend и backend, нужно обновить docker-compose.yml, добавив ссылку на файл app.env в секцию env_file для сервисов frontend и backend.
 
 Пример обновленного docker-compose.yml:
 
@@ -169,7 +168,7 @@ networks:
 
 volumes:
   db_data: {}
-4. Запуск и тестирование
+3. Запуск и тестирование
 Для запуска контейнеров используйте команду:
 
 bash
@@ -179,7 +178,8 @@ docker-compose up -d
 Проверьте работу сайта в браузере, перейдя по адресу http://localhost. Если отображается базовая страница Nginx, перезагрузите страницу.
 
 Ответы на вопросы
-1. В каком порядке запускаются контейнеры?
+В каком порядке запускаются контейнеры?
+
 Контейнеры запускаются в следующем порядке:
 
 database (MariaDB) — для запуска базы данных.
@@ -188,10 +188,12 @@ backend (PHP-FPM) — для обработки PHP-кода.
 
 frontend (Nginx) — для обработки запросов от клиента и маршрутизации.
 
-2. Где хранятся данные базы данных?
+Где хранятся данные базы данных?
+
 Данные базы данных хранятся в Docker-томе db_data, который монтируется в контейнер MariaDB на путь /var/lib/mysql. Этот том сохраняет данные между перезапусками контейнеров.
 
-3. Как называются контейнеры проекта?
+Как называются контейнеры проекта?
+
 Контейнеры проекта называются:
 
 frontend (Nginx)
@@ -200,7 +202,8 @@ backend (PHP-FPM)
 
 database (MariaDB)
 
-4. Как добавить файл app.env с переменной окружения APP_VERSION для сервисов backend и frontend?
+Как добавить файл app.env с переменной окружения APP_VERSION для сервисов backend и frontend?
+
 Для добавления файла app.env с переменной окружения APP_VERSION нужно:
 
 Создать файл app.env с переменной APP_VERSION.
