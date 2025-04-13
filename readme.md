@@ -21,11 +21,13 @@
 
    ```bash
    git init containers06
+    ```
 2. Сайт на PHP
 В директории containers06 создайте директорию mounts/site:
 
   ```bash
 mkdir -p containers06/mounts/site
+ ```
 Перепишите сайт на PHP, созданный в рамках предыдущих лабораторных работ, в эту директорию. Убедитесь, что в этой директории есть файлы index.php, а также другие страницы, такие как about.php и contact.php, если они есть.
 
 3. Конфигурационные файлы
@@ -40,9 +42,7 @@ mounts/site/*
 # 3.2. Создание конфигурации для Nginx
 В директории containers06 создайте файл nginx/default.conf со следующим содержимым:
 
-nginx
-Копировать
-Редактировать
+ ``` nginx
 server {
     listen 80;
     server_name _;
@@ -61,6 +61,7 @@ server {
         include fastcgi_params;
     }
 }
+ ```
 #  3.3. Создание docker-compose.yml
 В директории containers06 создайте файл docker-compose.yml со следующим содержимым:
 
