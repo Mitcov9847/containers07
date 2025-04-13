@@ -18,15 +18,16 @@
 1. Создайте репозиторий с именем `containers06` и скопируйте его себе на компьютер.
 
    ```bash
-   git init containers06
+   git init containers07
     ```
 2. Сайт на PHP
-В директории containers06 создайте директорию mounts/site:
+В директории containers07 создайте директорию mounts/site:
 
   ```bash
-mkdir -p containers06/mounts/site
+mkdir -p containers07/mounts/site
  ```
-Перепишите сайт на PHP, созданный в рамках предыдущих лабораторных работ, в эту директорию. Убедитесь, что в этой директории есть файлы index.php, а также другие страницы, такие как about.php и contact.php, если они есть.
+![image](https://github.com/user-attachments/assets/2e5e151b-0147-4c74-aa43-d3fa7e8fe608)
+
 
 3. Конфигурационные файлы
 3.1. Создание файла .gitignore
@@ -35,8 +36,9 @@ mkdir -p containers06/mounts/site
  ``` bash
 mounts/site/*
  ```
+
 # 3.2. Создание конфигурации для Nginx
-В директории containers06 создайте файл nginx/default.conf со следующим содержимым:
+В директории containers07 создайте файл nginx/default.conf со следующим содержимым:
 
  ``` nginx
 server {
@@ -58,6 +60,8 @@ server {
     }
 }
  ```
+![image](https://github.com/user-attachments/assets/c789ee89-262e-4a94-99e9-dcf65f440a51)
+
 #  3.3. Создание docker-compose.yml
 В директории containers06 создайте файл docker-compose.yml со следующим содержимым:
 
@@ -100,8 +104,9 @@ networks:
 volumes:
   db_data: {}
  ```
+![image](https://github.com/user-attachments/assets/a485eb8d-cfc9-4e52-a741-26611f515fff)
 
-#  3.4. Создание файла mysql.env
+#  3.4. Создание файла mysql.env 
 В корне проекта создайте файл mysql.env и добавьте в него строки:
 
  ```
@@ -111,61 +116,7 @@ MYSQL_DATABASE=app
 MYSQL_USER=user
 MYSQL_PASSWORD=secret
  ```
-
-3.5. Создание файла app.env
-В корне проекта создайте файл app.env и добавьте в него строку:
-
- ```
-env
-APP_VERSION=1.0.0
- ```
-Чтобы добавить переменную окружения APP_VERSION для сервисов frontend и backend, нужно обновить docker-compose.yml, добавив ссылку на файл app.env в секции env_file для сервисов frontend и backend.
-
-Пример обновленного docker-compose.yml:
-
- ```
-yaml
-version: '3.9'
-
-services:
-  frontend:
-    image: nginx:1.19
-    volumes:
-      - ./mounts/site:/var/www/html
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-    ports:
-      - "80:80"
-    networks:
-      - internal
-    env_file:
-      - mysql.env
-      - app.env
-
-  backend:
-    image: php:7.4-fpm
-    volumes:
-      - ./mounts/site:/var/www/html
-    networks:
-      - internal
-    env_file:
-      - mysql.env
-      - app.env
-
-  database:
-    image: mysql:8.0
-    env_file:
-      - mysql.env
-    networks:
-      - internal
-    volumes:
-      - db_data:/var/lib/mysql
-
-networks:
-  internal: {}
-
-volumes:
-  db_data: {}
- ```
+![image](https://github.com/user-attachments/assets/6ebf1759-2ce5-40fb-85c7-921e853f9867)
 
 # 4. Запуск и тестирование
 Для запуска контейнеров используйте команду:
@@ -174,7 +125,10 @@ volumes:
 bash
 docker-compose up -d
  ```
-Проверьте работу сайта в браузере, перейдя по адресу http://localhost. Если отображается базовая страница Nginx, перезагрузите страницу.
+![image](https://github.com/user-attachments/assets/b5cbe54f-864b-4b48-863d-9ee56f18f42c)
+
+![image](https://github.com/user-attachments/assets/ce0b1690-079e-41d1-b76a-99db545be3c3)
+
 
 ### Ответы на вопросы
 #### 1. В каком порядке запускаются контейнеры?
