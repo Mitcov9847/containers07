@@ -38,7 +38,7 @@ bash
 Редактировать
 # Ignore files and directories
 mounts/site/*
-2.2. Создание конфигурации для Nginx
+# 2.2. Создание конфигурации для Nginx
 В директории containers06 создайте файл nginx/default.conf со следующим содержимым:
 
 nginx
@@ -62,7 +62,7 @@ server {
         include fastcgi_params;
     }
 }
-2.3. Создание файла docker-compose.yml
+# 2.3. Создание файла docker-compose.yml
 В директории containers06 создайте файл docker-compose.yml со следующим содержимым:
 
 yaml
@@ -104,7 +104,7 @@ networks:
 
 volumes:
   db_data: {}
-2.4. Создание файла mysql.env
+# 2.4. Создание файла mysql.env
 В корне проекта создайте файл mysql.env и добавьте в него строки:
 
 env
